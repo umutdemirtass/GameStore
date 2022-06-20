@@ -1,1 +1,19 @@
-<p>game-creation works!</p>
+<div>
+    <form [formGroup]="createGame" (ngSubmit)="created()"> 
+        <div>
+            <label>Game Name</label>
+            <input type="text" class="form-control" formControlName="gameName">
+        </div>
+        <div>
+            <label>bundle</label>
+            <input type="text" class="form-control" formControlName="bundle">
+        </div>
+        <div>
+            <label>Owner</label>
+            <input type="text" class="form-control" formControlName="Owner">
+        </div>
+        <div>
+            <button type="submit">save</button>
+        </div>
+    </form>
+</div>
