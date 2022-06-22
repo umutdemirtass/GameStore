@@ -1,19 +1,92 @@
-<div>
-    <form [formGroup]="createGame" (ngSubmit)="created()"> 
+<div class="col-md-12 mt-5">
+  <div class="pb-2 d-flex justify-content-center">
+    <b style="font-size: 20px">New Game</b>
+  </div>
+
+  <div class="col-lg-6 col-md-12 col-sm-6 offset-lg-3 offset-sm-3">
+    <form [formGroup]="createGame" (ngSubmit)="create()">
+      <div style="margin-bottom: 1em">
+        <input
+          placeholder="Game Name"
+          type="text"
+          formControlName="gameName"
+          #name
+          class="form-control mb-1"
+          style="border-radius: 5px"
+        />
+        <small style="color: red" *ngIf="hasError('gameName')"
+          >the field is required.</small
+        >
+      </div>
+
+      <div style="margin-bottom: 1em">
+        <input
+          placeholder="Bundle"
+          type="text"
+          formControlName="bundle"
+          #bundle
+          class="form-control mb-1"
+          style="border-radius: 5px"
+        />
+        <small style="color: red" *ngIf="hasError('bundle')">
+          the field is required.</small
+        >
+        <small style="color: red" *ngIf="hasError('bundle', 'pattern')">
+          the field is not equal with pattern.</small
+        >
+      </div>
+
+      <div style="margin-bottom: 1em">
+        <input
+          placeholder="Owner"
+          formControlName="owner"
+          type="email"
+          #mail
+          class="form-control mb-1"
+          style="border-radius: 5px"
+        />
+        <small style="color: red" *ngIf="hasError('owner')"
+          >the field is required.</small
+        >
+        <small style="color: red" *ngIf="hasError('owner', 'email')"
+          >email is not value</small
+        >
+      </div>
+
+      <div>
         <div>
-            <label>Game Name</label>
-            <input type="text" class="form-control" formControlName="gameName">
+          <input
+            type="file"
+            id="imageSelect"
+            (change)="onImageSelect($event)"
+            accept="image/*"
+            hidden
+            #imageInput
+          />
+          <a (click)="imageInput.click()" class="btn btn-outline-info"
+            >Choose icon</a
+          >
+          {{ createGame.get("icon")?.value && "icon selected" }}
         </div>
-        <div>
-            <label>bundle</label>
-            <input type="text" class="form-control" formControlName="bundle">
+        <small class="text-danger" *ngIf="hasError('icon')"
+          >please add icon</small
+        >
+      </div>
+
+      <div class="row col-md-12 mt-3">
+        <div class="col-md-6 mt-1">
+          <button type="submit" class="w-100 save btn btn-primary">Save</button>
         </div>
-        <div>
-            <label>Owner</label>
-            <input type="text" class="form-control" formControlName="Owner">
+        <div class="col-md-6 mt-1">
+          <button
+            type="button"
+            routerLink="/"
+            class="w-100 return btn btn-secondary"
+          >
+            Return The Game List
+          </button>
         </div>
-        <div>
-            <button type="submit">save</button>
-        </div>
+      </div>
     </form>
+  </div>
 </div>
