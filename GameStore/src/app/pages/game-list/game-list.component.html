@@ -1,2 +1,71 @@
-<p>game-list works!</p>
-<button routerLink="/game-create">tikalas</button>
+<div class="col-md-12 grid-margin">
+  <div style="width: 80%; padding-top: 3em; padding-left: 8em">
+    <div style="width: 300px; float: left">
+      <div style="padding-bottom: 10px">
+        <b>Game List</b>
+      </div>
+      <input
+        [formControl]="searchControl"
+        placeholder="search"
+        type="text"
+        class="form-control mb-1"
+        style="border-radius: 20px"
+      />
+    </div>
+
+    <div style="width: 100px; float: right; padding-top: 2em">
+      <button
+        class="btn btn-primary"
+        style="
+          border-radius: 20px;
+          inline-size: max-content;
+          background-color: #03c03c;
+        "
+        routerLink="/game-create"
+      >
+        new game
+      </button>
+    </div>
+  </div>
+
+  <div style="padding-top: 7em; padding-left: 7em">
+    <div
+      *ngIf="(filteredGames$ | async)?.length == 0"
+      style="text-align: center"
+    >
+      <b style="color: rgb(95, 3, 95)">no records found</b>
+    </div>
+    <div class="row col-md-12">
+      <div
+        class="col-md-4 col-lg-3"
+        *ngFor="let game of filteredGames$ | async"
+      >
+        <div class="card">
+          <img
+            [src]="game.icon"
+            class="card-img-top"
+            style="
+              height: 200px;
+              object-fit: cover;
+              padding: 10px;
+              border-radius: 20px;
+            "
+          />
+          <div class="card-body">
+            <p><b>Game Name:</b> {{ game.gameName }}</p>
+            <p><b>Bundle:</b> {{ game.bundle }}</p>
+            <p><b>Owner:</b> {{ game.owner }}</p>
+
+            <a
+              (click)="deleteGame(game)"
+              class="btn btn-danger"
+              style="border-radius: 20px; float: right"
+            >
+              Delete
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
